@@ -1,0 +1,13 @@
+﻿{% extends "loginlayout.html" %}
+
+{% block content %}
+<h1>SignUp</h1>
+<h2>{{ message }}</h2>
+<form action="/signup" method="POST">
+	<p>Enter crendentials below</p>
+	<input type="text" name="user" />
+	<input type="text" name="pass" />
+	<button type="submit" value="signup">SignUp</button>
+</form>
+<a href="{{ url_for('login') }}">Back to Login</a>
+{% endblock %}

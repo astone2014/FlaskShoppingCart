@@ -1,0 +1,15 @@
+﻿{% extends "layout.html" %}
+
+{% block content %}
+<div class="cart">
+	<img style="height:50px;" src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" />
+	{% for row in products %}
+		<div class="product">
+			<h1>Name: {{ row.name }}</h1>
+			<h1>Quantity: {{ row.quantity }}</h1>
+			<p>Price: {{ row.price }}</p>
+			<button onclick="removeCart('{{ user }}', '{{ row.name }}')">Remove From Cart</button>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

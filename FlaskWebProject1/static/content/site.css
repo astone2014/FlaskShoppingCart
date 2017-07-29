@@ -1,0 +1,148 @@
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+	max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+	color: #b94a48;
+}
+
+.field-validation-valid {
+	display: none;
+}
+
+input.input-validation-error {
+	border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+	border: 0 none;
+}
+
+.validation-summary-errors {
+	color: #b94a48;
+}
+
+.validation-summary-valid {
+	display: none;
+}
+
+.body-content {
+	position: relative;
+}
+
+.cart {
+	display: none;
+	padding: 0px 40px 20px 40px;
+	border-radius: 0px 0px 10px 10px;
+	max-height: 100vh;
+	overflow: auto;
+	z-index: 99999;
+	position: fixed;
+	top: 50px;
+	width: 100%;
+	height: 100%;
+	right: 0%;
+	background: rgba(255, 255, 255, 0.7);
+	transition: .25s;
+}
+
+#cart-icon {
+	cursor: pointer;
+}
+
+.product {
+	border: 1px solid #eaeaea;
+	border-radius: 5px;
+	width: 100%;
+	display: inline-block;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+.product-add-button button {
+	color: white;
+	background: #16528e;
+	border: none;
+	border-radius: 3px;
+	transition: .5s
+}
+
+	.product-add-button button:hover {
+		background: #168e3e;
+	}
+
+.product-name {
+	font-size: 14px;
+	margin-top: 3px;
+	font-weight: bold;
+}
+
+#productbox {
+	padding: 10px;
+	width: 80%;
+	margin: auto;
+	background: white;
+}
+
+.product-image img {
+	float: left;
+	padding: 10px;
+	height: 125px;
+}
+
+.welcome-user {
+	color: white;
+	float: left;
+	padding: 15px 15px;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+#cart-icon {
+	float: left;
+	padding: 5px;
+	font-size: 18px;
+	line-height: 20px;
+}
+
+#cart-box {
+	position: relative;
+	max-width: 500px;
+	margin: auto;
+}
+
+#productbox-close:after {
+	color: #a7a7a7;
+	font-size: 25px;
+	content: '\2716';
+	position: absolute;
+	left: 0px;
+	top: 0px;
+}
+
+#productbox-close:hover:after {
+	cursor: pointer;
+	color: black;
+}
+
+.store .product {
+	display: inline-block;
+	margin: 0px 10px;
+	width: auto;
+	max-width: 250px;
+}

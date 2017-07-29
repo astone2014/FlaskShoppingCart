@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ title }} - My Flask Application</title>
+	<link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/static/content/animate.css" />
+	<link rel="stylesheet" type="text/css" href="/static/content/site.css" />
+	<script src="/static/scripts/modernizr-2.6.2.js"></script>
+</head>
+
+<body>
+	<div class="cart">
+		<div id="cart-box">
+			<div id="productbox-close"></div>
+			<div id="productbox">
+				{% for row in cart %}
+				<div class="product">
+					<div class="product-image">
+						<span><img src="{{ row.image }}"</span>
+					</div>
+					<div class="product-name">
+						<span>{{ row.name }}</span>
+					</div>
+					<div class="product-quantity">
+						<span>Quantity: {{ row.quantity }}</span>
+					</div>
+					<div class="product-price">
+						<span>${{ row.price }}</span>
+					</div>
+					<div class="product-add-button">
+						<button onclick="removeCart('{{ user }}', '{{ row.name }}')">Remove</button>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a href="{{ url_for('home') }}" class="navbar-brand">Shopping Cart</a>
+				<div class="welcome-user">
+					<span>Hello {{ user }}</span>
+				</div>
+				<img id="cart-icon" style="height:50px;" src="/static/cart-white.png" />
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					<li><a href="{{ url_for('home') }}">Store</a></li>
+					<li><a href="{{ url_for('login') }}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container body-content">
+		{% block content %}{% endblock %}
+		<hr />
+		<footer>
+			<p>&copy; {{ year }} - Austen Stone</p>
+		</footer>
+	</div>
+
+	<script src="/static/scripts/jquery-1.10.2.js"></script>
+	<script src="/static/scripts/bootstrap.js"></script>
+	<script src="/static/scripts/respond.js"></script>
+	{% block scripts %}{% endblock %}
+	<script>
+		function addCart(User, Product) {
+			var jdata = JSON.parse('{"product": "' + Product + '"}')
+			$.ajax({
+				url: '/addCart',
+				contentType: 'application/json;charset=UTF-8',
+				data: JSON.stringify(jdata),
+				type: 'POST',
+				success: function (response) {
+					$('#cart-icon').addClass('bounce animated')
+					jdata = JSON.parse(response)
+					setTimeout(function () {
+						$('#cart-icon').removeClass('bounce animated')
+					}, 1000)
+					$('#productbox').html(Product + " Added")
+					for (x = 0; x < jdata.length; x++) {
+						$('#productbox').append(`
+							<div class="product">
+								<div class="product-image">
+									<span><img src="` + jdata[x].image + `"</span>
+								</div>
+								<div class="product-name">
+									<span>` + jdata[x].name + `</span>
+								</div>
+								<div class="product-quantity">
+									<span>Quantity:` + jdata[x].quantity + `</span>
+								</div>
+								<div class="product-price">
+									<span>` + jdata[x].price + `</span>
+								</div>
+								<div class="product-add-button">
+									<button onclick="removeCart('` + User + `', '` + jdata[x].name + `')">Remove</button>
+								</div>
+							</div>
+						`)
+					}
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
+		$('#cart-icon').click(function () {
+			$('.cart').toggle()
+		})
+		$('#productbox-close').click(function () {
+			$('.cart').toggle()
+		})
+		function removeCart(User, Product) {
+			console.log("removing " + Product)
+			var jdata = JSON.parse('{"product": "' + Product + '"}')
+			$.ajax({
+				url: '/removeCart',
+				contentType: 'application/json;charset=UTF-8',
+				data: JSON.stringify(jdata),
+				type: 'POST',
+				success: function (response) {
+					jdata = JSON.parse(response)
+					$('#cart-icon').addClass('shake animated')
+					setTimeout(function () {
+						$('#cart-icon').removeClass('shake animated')
+					}, 1000)
+					$('#productbox').html("Item Removed")
+					for (x = 0; x < jdata.length; x++) {
+						console.log(jdata[x])
+						$('#productbox').append(`
+							<div class="product">
+								<div class="product-image">
+									<span><img src="` + jdata[x].image + `"</span>
+								</div>
+								<div class="product-name">
+									<span>` + jdata[x].name + `</span>
+								</div>
+								<div class="product-quantity">
+									<span>Quantity:` + jdata[x].quantity + `</span>
+								</div>
+								<div class="product-price">
+									<span>` + jdata[x].price + `</span>
+								</div>
+								<div class="product-add-button">
+									<button onclick="removeCart('` + User + `', '` + jdata[x].name + `')">Remove</button>
+								</div>
+							</div>
+						`)
+					}
+				},
+				error: function (error) {
+					console.log(error);
+				}
+			});
+		}
+	</script>
+
+</body>
+</html>

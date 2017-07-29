@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Store</h1>
+<div class="store">
+	{% for row in products %}
+	<div class="product">
+		<div class="product-image">
+			<span><img src="{{ row.image }}"</span>
+		</div>
+		<div class="product-name">
+			<span>{{ row.name }}</span>
+		</div>
+		<div class="product-price">
+			<span>Price: {{ row.price }}</span>
+		</div>
+		<div class="product-add-button">
+			<button onclick="addCart('{{ user }}', '{{ row.name }}')">Add To Cart</button>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
