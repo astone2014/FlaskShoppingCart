@@ -6,3 +6,5 @@ This project is an asynchronous online shopping application that was developed i
   
 ## Instructions
 This project was built in VS 2017 so you'll see some project files lying around. Feel free to use project files or browse "FlaskWebProject1" to see all the code. Run "runeserver.py" to get Flask server started. You may need to pip install Flask and a few other libraries.
+
+![alt text](http://austenstone.com/COP/chrome_2017-07-28_21-45-50.png)
